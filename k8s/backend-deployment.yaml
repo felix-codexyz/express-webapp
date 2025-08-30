@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        # IMPORTANT: Replace <your-docker-image> with the actual Docker image for the application.
+        # For example, your-aws-account-id.dkr.ecr.your-region.amazonaws.com/your-repo-name:latest
+        image: <your-docker-image>
+        ports:
+        - containerPort: 3000
+        # Liveness and readiness probes are highly recommended for production deployments.
+        # Add them here once you have a health check endpoint in your application.
+        # livenessProbe:
+        #   httpGet:
+        #     path: /healthz
+        #     port: 3000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
+        # readinessProbe:
+        #   httpGet:
+        #     path: /healthz
+        #     port: 3000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
